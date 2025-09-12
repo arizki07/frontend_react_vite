@@ -48,7 +48,7 @@
 <p>Ikuti langkah-langkah di bawah ini untuk memulai pengembangan secara lokal:</p>
 <ol>
     <li><strong>Clone repositori:</strong>
-        <pre><code>git clone [URL_REPOSITORI_ANDA]</code></pre>
+        <pre><code>git clone https://github.com/arizki07/frontend_react_vite.git</code></pre>
     </li>
     <li><strong>Masuk ke direktori frontend:</strong>
         <pre><code>cd frontend</code></pre>
