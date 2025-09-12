@@ -2,8 +2,11 @@ import * as React from "react";
 import {
   IconChartBar,
   IconDashboard,
+  IconFileText,
   IconInnerShadowTop,
   IconListDetails,
+  IconUserCircle,
+  IconUsers,
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/shared/nav-main";
@@ -33,17 +36,17 @@ const data = {
     {
       title: "Users",
       url: "/users",
-      icon: IconListDetails,
+      icon: IconUsers,
     },
     {
       title: "Profile",
       url: "/profile",
-      icon: IconChartBar,
+      icon: IconUserCircle,
     },
     {
       title: "Audit Logs",
       url: "/audit/logs",
-      icon: IconChartBar,
+      icon: IconFileText,
     },
   ],
   // navClouds: [
@@ -142,7 +145,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">My App</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
