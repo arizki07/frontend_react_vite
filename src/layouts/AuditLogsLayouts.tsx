@@ -55,7 +55,7 @@ export function AuditLogsLayouts() {
         page: currentPage,
         limit: rowsPerPage,
         q: search || undefined,
-        sortBy,
+        sortBy: sortBy || undefined,
         sortDir: sortOrder,
       });
       setData(res.data);
@@ -208,10 +208,18 @@ export function AuditLogsLayouts() {
                         <Eye className="h-4 w-4" />
                       </Button>
                     </TableCell>
-                    <TableCell className="border">{row.created_at}</TableCell>
-                    <TableCell className="border">{row.actor_id}</TableCell>
-                    <TableCell className="border">{row.entity}</TableCell>
-                    <TableCell className="border">{row.entity_id}</TableCell>
+                    <TableCell className="text-center border cursor-pointer select-none">
+                      {row.created_at}
+                    </TableCell>
+                    <TableCell className="text-center border cursor-pointer select-none">
+                      {row.actor_id}
+                    </TableCell>
+                    <TableCell className="text-center border cursor-pointer select-none">
+                      {row.entity}
+                    </TableCell>
+                    <TableCell className="text-center border cursor-pointer select-none">
+                      {row.entity_id}
+                    </TableCell>
                   </TableRow>
 
                   {selectedAudit?.id === row.id && (

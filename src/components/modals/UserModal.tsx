@@ -16,7 +16,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import type { User } from "@/api/user/UserApi";
-import { User as UserIcon, Shield } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface UserModalProps {
@@ -41,6 +41,8 @@ export function UserModal({
   const [role, setRole] = useState<"admin" | "user">("user");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -81,8 +83,7 @@ export function UserModal({
     }
 
     try {
-      // ✅ Tambahkan 'await' di sini dan jadikan fungsi 'async'
-      await onSubmit(payload); // If onSubmit succeeds, you can close the modal here, or let the parent do it // onClose(); // The parent component (UserLayout) already handles this, so this is optional
+      await onSubmit(payload);
       onClose();
     } catch (err) {
       console.error("Submission failed:", err);
@@ -112,7 +113,7 @@ export function UserModal({
     <Dialog open={open} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle> {title}</DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
@@ -121,9 +122,8 @@ export function UserModal({
               <div className="flex flex-col">
                 <label
                   htmlFor="name"
-                  className="text-sm font-medium text-gray-700 flex items-center gap-1"
+                  className="text-sm font-medium text-gray-700 mb-1"
                 >
-                  <UserIcon className="w-4 h-4" />
                   Name
                 </label>
                 <Input
@@ -138,9 +138,8 @@ export function UserModal({
               <div className="flex flex-col">
                 <label
                   htmlFor="username"
-                  className="text-sm font-medium text-gray-700 flex items-center gap-1"
+                  className="text-sm font-medium text-gray-700 mb-1"
                 >
-                  <UserIcon className="w-4 h-4" />
                   Username
                 </label>
                 <Input
@@ -155,9 +154,8 @@ export function UserModal({
               <div className="flex flex-col">
                 <label
                   htmlFor="role"
-                  className="text-sm font-medium text-gray-700 flex items-center gap-1"
+                  className="text-sm font-medium text-gray-700 mb-1"
                 >
-                  <Shield className="w-4 h-4" />
                   Role
                 </label>
                 <select
@@ -176,36 +174,58 @@ export function UserModal({
 
           {(mode === ModalType.create || isPassword) && (
             <>
-              <div className="flex flex-col">
+              <div className="flex flex-col relative">
                 <label
                   htmlFor="password"
-                  className="text-sm font-medium text-gray-700"
+                  className="text-sm font-medium text-gray-700 mb-1"
                 >
                   Password
                 </label>
                 <Input
                   id="password"
                   placeholder="Password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <button
+                  type="button"
+                  className="absolute right-2 top-9 text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
 
-              <div className="flex flex-col">
+              <div className="flex flex-col relative">
                 <label
                   htmlFor="confirmPassword"
-                  className="text-sm font-medium text-gray-700"
+                  className="text-sm font-medium text-gray-700 mb-1"
                 >
                   Confirm Password
                 </label>
                 <Input
                   id="confirmPassword"
                   placeholder="Confirm Password"
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
+                <button
+                  type="button"
+                  className="absolute right-2 top-9 text-gray-500 hover:text-gray-700"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="h-4 w-4" />
+                  ) : (
+                    <Eye className="h-4 w-4" />
+                  )}
+                </button>
               </div>
             </>
           )}

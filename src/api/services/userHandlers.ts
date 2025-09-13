@@ -15,6 +15,7 @@ export function useUserHandlers() {
       setCurrentData(res.data);
       toast.success("Users loaded successfully");
       return res;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to load users");
       throw err;
@@ -30,6 +31,7 @@ export function useUserHandlers() {
       setSelectedUser(user);
       toast.success("User loaded successfully");
       return user;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to load user");
       throw err;
@@ -46,6 +48,7 @@ export function useUserHandlers() {
       const user = await UserApi.createUser(data);
       toast.success("User created successfully");
       return user;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to create user");
       throw err;
@@ -60,6 +63,7 @@ export function useUserHandlers() {
       const user = await UserApi.updateUser(id, data);
       toast.success("User updated successfully");
       return user;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to update user");
       throw err;
@@ -78,6 +82,7 @@ export function useUserHandlers() {
       const user = await UserApi.updatePassword(id, password, confirm_password);
       toast.success("Password updated successfully");
       return user;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to update password");
       throw err;
@@ -92,6 +97,7 @@ export function useUserHandlers() {
       const user = await UserApi.deleteUser(id, confirm_password);
       toast.success("User deleted successfully");
       return user;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to delete user");
       throw err;
@@ -106,6 +112,7 @@ export function useUserHandlers() {
       const res = await getUsers(params);
       toast.success("Users refreshed successfully");
       return res;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to refresh users");
       throw err;
@@ -119,6 +126,7 @@ export function useUserHandlers() {
       const blob = await UserApi.exportCSV(params);
       toast.success("CSV exported successfully");
       return blob;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err?.message || "Failed to export CSV");
       throw err;

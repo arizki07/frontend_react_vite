@@ -1,9 +1,7 @@
 import {
-  IconCreditCard,
   IconDotsVertical,
-  IconNotification,
-  IconUserCircle,
   IconLogout,
+  IconDashboard,
 } from "@tabler/icons-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -63,8 +61,9 @@ export function NavUser() {
       try {
         const res = await AuthApi.me();
         setUser({ name: res.data.name, avatar: res.data.avatar });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
-        toast.error("Gagal mengambil data user");
+        toast.error("Gagal mengambil data user", err);
       }
     };
     fetchUser();
@@ -77,6 +76,7 @@ export function NavUser() {
     try {
       await AuthApi.logout();
       window.location.href = "/"; // arahkan ke login setelah logout
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       toast.error(err.message || "Logout gagal");
     } finally {
@@ -125,15 +125,8 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem className="cursor-pointer">
-                <IconUserCircle />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <IconCreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer">
-                <IconNotification />0 Notifications
+                <IconDashboard />
+                Dashboard
               </DropdownMenuItem>
             </DropdownMenuGroup>
 

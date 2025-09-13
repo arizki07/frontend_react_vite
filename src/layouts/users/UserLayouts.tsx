@@ -25,8 +25,8 @@ import {
   Shield,
   User2,
   Download,
-  ChevronDown,
-  ChevronUp,
+  ArrowUpNarrowWide,
+  ArrowDownNarrowWide,
 } from "lucide-react";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -149,9 +149,9 @@ export function UserLayout() {
   const confirmDelete = async () => {
     if (!deleteUserTarget) return;
     try {
-      await deleteUser(deleteUserTarget.id, deletePassword); // panggil API delete
+      await deleteUser(deleteUserTarget.id, deletePassword);
       setDeleteDialogOpen(false);
-      await fetchUsers(); // refresh data setelah delete
+      await fetchUsers();
       toast.success("User deleted successfully");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -260,12 +260,13 @@ export function UserLayout() {
           className="w-[250px]"
         />
         <Select
+          value={roleFilter || "all"}
           onValueChange={(val) =>
             setRoleFilter(val === "all" ? "" : (val as "admin" | "user"))
           }
         >
           <SelectTrigger className="w-[100px]">
-            <SelectValue placeholder="Role" value={roleFilter || undefined} />
+            <SelectValue placeholder="Role" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all" className="flex items-center gap-2">
@@ -280,9 +281,12 @@ export function UserLayout() {
           </SelectContent>
         </Select>
 
-        <Select onValueChange={(val) => setRowsPerPage(Number(val))}>
+        <Select
+          value={String(rowsPerPage)}
+          onValueChange={(val) => setRowsPerPage(Number(val))}
+        >
           <SelectTrigger className="w-[100px]">
-            <SelectValue placeholder="Rows" value={String(rowsPerPage)} />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {[5, 10, 25, 50].map((n) => (
@@ -306,118 +310,80 @@ export function UserLayout() {
           <Table className="table-auto w-full text-sm border-separate border border-gray-400 rounded-lg">
             <TableHeader>
               <TableRow>
-                <TableHead className="text-center">Actions</TableHead>
+                <TableHead className="text-center border cursor-pointer select-none">
+                  Actions
+                </TableHead>
 
                 <TableHead
-                  className="text-center cursor-pointer hover:text-blue-600 select-none"
+                  className="text-center border cursor-pointer select-none"
                   onClick={() => handleSortClick("name")}
-                  title="Click to sort"
                 >
-                  Name{" "}
-                  <span className="inline-flex flex-col ml-1">
-                    <ChevronUp
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "name" && sortDir === "ASC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "name" && sortDir === "DESC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                  </span>
+                  <div className="flex items-center justify-center gap-1">
+                    Name{" "}
+                    {sortBy === "name" ? (
+                      sortDir === "ASC" ? (
+                        <ArrowUpNarrowWide className="h-4 w-4" />
+                      ) : (
+                        <ArrowDownNarrowWide className="h-4 w-4" />
+                      )
+                    ) : (
+                      <ArrowUpNarrowWide className="h-4 w-4 " />
+                    )}
+                  </div>
                 </TableHead>
 
                 <TableHead
-                  className="text-center cursor-pointer hover:text-blue-600 select-none"
+                  className="text-center border cursor-pointer select-none"
                   onClick={() => handleSortClick("username")}
-                  title="Click to sort"
                 >
-                  Username{" "}
-                  <span className="inline-flex flex-col ml-1">
-                    <ChevronUp
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "username" && sortDir === "ASC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "username" && sortDir === "DESC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                  </span>
+                  <div className="flex items-center justify-center gap-1">
+                    Username{" "}
+                    {sortBy === "username" ? (
+                      sortDir === "ASC" ? (
+                        <ArrowUpNarrowWide className="h-4 w-4" />
+                      ) : (
+                        <ArrowDownNarrowWide className="h-4 w-4" />
+                      )
+                    ) : (
+                      <ArrowUpNarrowWide className="h-4 w-4 " />
+                    )}
+                  </div>
                 </TableHead>
 
                 <TableHead
-                  className="text-center cursor-pointer hover:text-blue-600 select-none"
+                  className="text-center border cursor-pointer select-none"
                   onClick={() => handleSortClick("role")}
-                  title="Click to sort"
                 >
-                  Role{" "}
-                  <span className="inline-flex flex-col ml-1">
-                    <ChevronUp
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "role" && sortDir === "ASC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "role" && sortDir === "DESC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                  </span>
+                  <div className="flex items-center justify-center gap-1">
+                    Role{" "}
+                    {sortBy === "role" ? (
+                      sortDir === "ASC" ? (
+                        <ArrowUpNarrowWide className="h-4 w-4" />
+                      ) : (
+                        <ArrowDownNarrowWide className="h-4 w-4" />
+                      )
+                    ) : (
+                      <ArrowUpNarrowWide className="h-4 w-4 " />
+                    )}
+                  </div>
                 </TableHead>
 
                 <TableHead
-                  className="text-center cursor-pointer hover:text-blue-600 select-none"
+                  className="text-center border cursor-pointer select-none"
                   onClick={() => handleSortClick("created_at")}
-                  title="Click to sort"
                 >
-                  Created At{" "}
-                  <span className="inline-flex flex-col ml-1">
-                    <ChevronUp
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "created_at" && sortDir === "ASC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                    <ChevronDown
-                      size={12}
-                      strokeWidth={2}
-                      className={
-                        sortBy === "created_at" && sortDir === "DESC"
-                          ? "text-black"
-                          : "text-gray-600"
-                      }
-                    />
-                  </span>
+                  <div className="flex items-center justify-center gap-1">
+                    Created At{" "}
+                    {sortBy === "created_at" ? (
+                      sortDir === "ASC" ? (
+                        <ArrowUpNarrowWide className="h-4 w-4" />
+                      ) : (
+                        <ArrowDownNarrowWide className="h-4 w-4" />
+                      )
+                    ) : (
+                      <ArrowUpNarrowWide className="h-4 w-4 " />
+                    )}
+                  </div>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -434,7 +400,9 @@ export function UserLayout() {
                             variant="outline"
                             size="icon"
                             title="Menu"
-                            className="cursor-pointer bg-gray-200 border-gray-900 text-gray-900 hover:bg-gray-100 dark:bg-gray-500 dark:border-gray-900 dark:text-white dark:hover:bg-gray-800 h-7 w-7 shadow shadow-gray-300 hover:shadow-gray-400"
+                            className="cursor-pointer bg-gray-200 border-gray-900 text-gray-900 hover:bg-gray-100 
+                   dark:bg-gray-500 dark:border-gray-900 dark:text-white dark:hover:bg-gray-800 
+                   h-7 w-7 shadow shadow-gray-300 hover:shadow-gray-400"
                           >
                             <EllipsisVertical className="h-2 w-2" />
                           </Button>
@@ -464,16 +432,21 @@ export function UserLayout() {
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
+
+                      {/* 👇 kasih jarak kecil */}
                       <Button
                         variant="outline"
                         size="icon"
                         onClick={() => handleDetail(user)}
                         title="View Detail"
-                        className="cursor-pointer bg-blue-200 border-blue-900 text-blue-900 hover:bg-blue-100 dark:bg-blue-500 dark:border-blue-900 dark:text-white dark:hover:bg-blue-800 h-7 w-7 shadow shadow-blue-300 hover:shadow-blue-400"
+                        className="ml-1 cursor-pointer bg-blue-200 border-blue-900 text-blue-900 hover:bg-blue-100 
+               dark:bg-blue-500 dark:border-blue-900 dark:text-white dark:hover:bg-blue-800 
+               h-7 w-7 shadow shadow-blue-300 hover:shadow-blue-400"
                       >
                         <Eye className="h-4 w-4" />
                       </Button>
                     </TableCell>
+
                     <TableCell className="text-center border">
                       {user.name}
                     </TableCell>
